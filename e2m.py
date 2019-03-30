@@ -1,5 +1,5 @@
 #!/usr/bin/env python2
-
+#coding:utf-8
 # A simple app that lets you upload a epub, calls
 # ebook-convert to convert it to mobi and returns
 # the mobi file
@@ -75,7 +75,7 @@ def sub():
         mobipath = '%s/%s.mobi' % (UPLOAD_FOLDER, filename[:-5])
 
         call(['./wenku8','-u',wenku8menu,'-o',epubpath])
-        call(['ebook-convert', epubpath, mobipath])
+        call(['kindlegen', epubpath,'-o', mobipath])
         
         message = MIMEMultipart()
         message['From'] = "{}".format(SMTP_SENDER)
