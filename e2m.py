@@ -80,9 +80,9 @@ def sub():
         message = MIMEMultipart()
         message['From'] = "{}".format(SMTP_SENDER)
         message['To'] =  ",".join(receivers)
-        subject = 'Python aotu sender'
+        subject = '小说推送'
         message['Subject'] = Header(subject, 'utf-8')
-        message.attach(MIMEText('Aotu send', 'plain', 'utf-8'))
+        message.attach(MIMEText('文件都在附件里', 'plain', 'utf-8'))
         #邮件正文内容
         
  
