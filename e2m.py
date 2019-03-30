@@ -68,21 +68,21 @@ def sub():
         receivers.append(mail)
         wenku8menu = "https://www.wenku8.net/modules/article/reader.php?aid=%s" % w_id
         html = requests.get(wenku8menu).text
-        filename = string_middle(html,'<div id="title">','</div>')
+        filename = string_middle('<div id="title">','</div>',html)
         if not filename:
             filename = str(int(time.time()))
         epubpath = '%s/%s.epub' % (UPLOAD_FOLDER, filename)
-        mobipath = '%s/%s.mobi' % (UPLOAD_FOLDER, filename[:-5])
+        mobipath = '%s/%s.mobi' % (UPLOAD_FOLDER, filename)
 
         call(['./wenku8','-u',wenku8menu,'-o',epubpath])
-        call(['kindlegen', os.path.join(os.getcwd(),epubpath),'-o', os.path.join(mobipath)])
+        call(['kindlegen', os.path.join(os.getcwd(),epubpath),'-o', "%s.mobi"%filename])
         
         message = MIMEMultipart()
         message['From'] = "{}".format(SMTP_SENDER)
         message['To'] =  ",".join(receivers)
         subject = '小说推送'
         message['Subject'] = Header(subject, 'utf-8')
-        message.attach(MIMEText('文件都在附件里', 'plain', 'utf-8'))
+        message.attach(MIMEText('正在推送\n小说名：%s\n'%filename, 'plain', 'utf-8'))
         #邮件正文内容
         
  
