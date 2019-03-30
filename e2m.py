@@ -51,7 +51,8 @@ def upload_file():
             mobipath = '%s/%s.mobi' % (UPLOAD_FOLDER, filename[:-5])
             file.save(epubpath)
             try:
-                call(['ebook-convert', epubpath, mobipath])
+                # call(['ebook-convert', epubpath, mobipath])
+                call(['kindlegen', epubpath,'-o', "%s.mobi"%filename[:-5])
                 os.remove(epubpath)
                 return redirect(mobipath)
             except:
@@ -80,9 +81,9 @@ def sub():
         message = MIMEMultipart()
         message['From'] = "{}".format(SMTP_SENDER)
         message['To'] =  ",".join(receivers)
-        subject = '小说推送'
+        subject = 'Ero:小说推送'
         message['Subject'] = Header(subject, 'utf-8')
-        message.attach(MIMEText('正在推送\n小说名：%s\n'%filename, 'plain', 'utf-8'))
+        message.attach(MIMEText('正在推送\n小说名：%s\n'%filename.encode("utf-8"), 'plain', 'utf-8'))
         #邮件正文内容
         
  
