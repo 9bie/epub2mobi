@@ -75,7 +75,7 @@ def sub():
         mobipath = '%s/%s.mobi' % (UPLOAD_FOLDER, filename[:-5])
 
         call(['./wenku8','-u',wenku8menu,'-o',epubpath])
-        call(['kindlegen', epubpath,'-o', mobipath])
+        call(['kindlegen', os.path.join(os.getcwd(),epubpath),'-o', os.path.join(mobipath)])
         
         message = MIMEMultipart()
         message['From'] = "{}".format(SMTP_SENDER)
