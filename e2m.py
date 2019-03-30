@@ -74,9 +74,9 @@ def sub():
         epubpath = '%s/%s.epub' % (UPLOAD_FOLDER, filename)
         mobipath = '%s/%s.mobi' % (UPLOAD_FOLDER, filename[:-5])
 
-        call(['wenku8','-u',wenku8menu,'-o',epubpath])
+        call(['./wenku8','-u',wenku8menu,'-o',epubpath])
         call(['ebook-convert', epubpath, mobipath])
-        os.remove(epubpath)
+        
         message = MIMEMultipart()
         message['From'] = "{}".format(SMTP_SENDER)
         message['To'] =  ",".join(receivers)
@@ -95,6 +95,7 @@ def sub():
         server=smtplib.SMTP(host=SMTP_SERVER,port=SMTP_PORT)
         server.login(user=SMTP_SENDER,password=SMTP_PASSWD)
         server.sendmail(SMTP_SENDER, receivers, message.as_string())
+        os.remove(epubpath)
         os.remove(mobipath)
         return "start making...please wait."
         
